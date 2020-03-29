@@ -17,6 +17,7 @@ const pathlib = require('path');
 const config = require('wild-config');
 const { PassThrough } = require('stream');
 const msgpack = require('msgpack5')();
+require('dotenv').config();
 
 const { redis } = require('../lib/db');
 const { Account } = require('../lib/account');
@@ -299,8 +300,8 @@ parentPort.on('message', message => {
 
 const init = async () => {
     const server = Hapi.server({
-        port: config.api.port,
-        host: config.api.host,
+        port: process.env.PORT,
+        host: process.env.HOST,
         query: {
             parser: query => qs.parse(query, { depth: 3 })
         }
